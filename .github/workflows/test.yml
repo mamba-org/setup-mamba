@@ -20,4 +20,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
     - name: Install Python
-      run: mamba install -c conda-forge python
+      run: mamba install -y -c conda-forge python
+    - name: Install Notebook and widgets
+      run: mamba install -y -c notebook ipywidgets
+    - name: List the packages
+      run: mamba list
