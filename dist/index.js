@@ -983,6 +983,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const path = __importStar(__webpack_require__(622));
 const core = __importStar(__webpack_require__(470));
 const exec = __importStar(__webpack_require__(986));
 function installMamba() {
@@ -990,11 +991,19 @@ function installMamba() {
         yield exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba']);
     });
 }
+const addPath = () => __awaiter(void 0, void 0, void 0, function* () {
+    const basePath = process.env.CONDA;
+    const bin = path.join(basePath, 'bin');
+    core.addPath(basePath);
+    core.addPath(bin);
+});
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             core.debug('Installing mamba');
             yield installMamba();
+            core.debug('Add conda to the path');
+            yield addPath();
         }
         catch (error) {
             core.setFailed(error.message);
