@@ -991,11 +991,17 @@ function installMamba() {
         yield exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba']);
     });
 }
-const addPath = () => __awaiter(void 0, void 0, void 0, function* () {
+const addPath = (os) => __awaiter(void 0, void 0, void 0, function* () {
     const basePath = process.env.CONDA;
-    const bin = path.join(basePath, 'bin');
     core.addPath(basePath);
-    core.addPath(bin);
+    if (os === 'darwin') {
+        const bin = path.join(basePath, 'condabin');
+        core.addPath(bin);
+    }
+    else {
+        const bin = path.join(basePath, 'bin');
+        core.addPath(bin);
+    }
 });
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -1003,7 +1009,8 @@ function run() {
             core.debug('Installing mamba');
             yield installMamba();
             core.debug('Add conda to the path');
-            yield addPath();
+            const os = process.platform;
+            yield addPath(os);
         }
         catch (error) {
             core.setFailed(error.message);

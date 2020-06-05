@@ -8,11 +8,16 @@ async function installMamba(): Promise<void> {
   await exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba'])
 }
 
-const addPath = async (): Promise<void> => {
+const addPath = async (os: string): Promise<void> => {
   const basePath = process.env.CONDA as string
-  const bin = path.join(basePath, 'bin')
   core.addPath(basePath)
-  core.addPath(bin)
+  if (os === 'darwin') {
+    const bin = path.join(basePath, 'condabin')
+    core.addPath(bin)
+  } else {
+    const bin = path.join(basePath, 'bin')
+    core.addPath(bin)
+  }
 }
 
 async function run(): Promise<void> {
@@ -20,7 +25,8 @@ async function run(): Promise<void> {
     core.debug('Installing mamba')
     await installMamba()
     core.debug('Add conda to the path')
-    await addPath()
+    const os = process.platform
+    await addPath(os)
   } catch (error) {
     core.setFailed(error.message)
   }
