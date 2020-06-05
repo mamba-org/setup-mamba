@@ -26,8 +26,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./
+    - name: Run conda list
+      run: conda list
     - name: Install Python
-      run: mamba install -y -c conda-forge python
+      run: mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
       run: mamba install -y -c notebook ipywidgets
     - name: List the packages
