@@ -986,30 +986,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path = __importStar(__webpack_require__(622));
 const core = __importStar(__webpack_require__(470));
 const exec = __importStar(__webpack_require__(986));
+function fixPermissions(os) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (os === 'darwin') {
+            const username = process.env.USER;
+            yield exec.exec('sudo', [
+                'chown',
+                '-R',
+                `${username}:staff`,
+                process.env.CONDA
+            ]);
+        }
+    });
+}
+function addPath(os) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const basePath = process.env.CONDA;
+        if (os === 'darwin') {
+            const bin = path.join(basePath, 'condabin');
+            core.addPath(bin);
+        }
+        else {
+            const bin = path.join(basePath, 'bin');
+            core.addPath(bin);
+        }
+    });
+}
 function installMamba() {
     return __awaiter(this, void 0, void 0, function* () {
         yield exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba']);
     });
 }
-const addPath = (os) => __awaiter(void 0, void 0, void 0, function* () {
-    const basePath = process.env.CONDA;
-    core.addPath(basePath);
-    console.log(basePath);
-    yield exec.exec('ls', ['-lisah', basePath]);
-    if (os === 'darwin') {
-        const bin = path.join(basePath, 'condabin');
-        core.addPath(bin);
-    }
-    else {
-        const bin = path.join(basePath, 'bin');
-        core.addPath(bin);
-    }
-});
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            core.debug('Add conda to the path');
             const os = process.platform;
+            core.debug('Fix permissions');
+            fixPermissions(os);
+            core.debug('Add conda to the path');
             yield addPath(os);
             core.debug('Installing mamba');
             yield installMamba();
