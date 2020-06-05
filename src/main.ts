@@ -31,7 +31,14 @@ async function addPath(os: string): Promise<void> {
 }
 
 async function installMamba(): Promise<void> {
-  await exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba'])
+  await exec.exec('conda', [
+    'install',
+    '-y',
+    '-c',
+    'conda-forge',
+    'mamba',
+    'libssh2=1.8.2'
+  ])
 }
 
 async function run(): Promise<void> {

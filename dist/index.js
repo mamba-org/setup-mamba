@@ -1018,7 +1018,14 @@ function addPath(os) {
 }
 function installMamba() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba']);
+        yield exec.exec('conda', [
+            'install',
+            '-y',
+            '-c',
+            'conda-forge',
+            'mamba',
+            'libssh2=1.8.2'
+        ]);
     });
 }
 function run() {
