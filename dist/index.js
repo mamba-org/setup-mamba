@@ -1008,11 +1008,11 @@ const addPath = (os) => __awaiter(void 0, void 0, void 0, function* () {
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            core.debug('Installing mamba');
-            yield installMamba();
             core.debug('Add conda to the path');
             const os = process.platform;
             yield addPath(os);
+            core.debug('Installing mamba');
+            yield installMamba();
         }
         catch (error) {
             core.setFailed(error.message);

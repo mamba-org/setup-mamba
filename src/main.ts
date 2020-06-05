@@ -24,11 +24,11 @@ const addPath = async (os: string): Promise<void> => {
 
 async function run(): Promise<void> {
   try {
-    core.debug('Installing mamba')
-    await installMamba()
     core.debug('Add conda to the path')
     const os = process.platform
     await addPath(os)
+    core.debug('Installing mamba')
+    await installMamba()
   } catch (error) {
     core.setFailed(error.message)
   }
