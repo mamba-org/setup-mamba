@@ -31,11 +31,13 @@ jobs:
     - uses: ./
     - name: Run conda list
       run: conda list
+    - name: init pwsh
+      run: conda init powershell && conda activate base
     - name: Install Python
-      shell: cmd
-      run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
+      # shell: cmd
+      # run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
+      run: echo "$env:path"
     - name: Install stuff
-      shell: cmd
       run: mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
       run: mamba install -y -c conda-forge notebook ipywidgets
