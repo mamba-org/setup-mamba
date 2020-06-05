@@ -994,6 +994,8 @@ function installMamba() {
 const addPath = (os) => __awaiter(void 0, void 0, void 0, function* () {
     const basePath = process.env.CONDA;
     core.addPath(basePath);
+    console.log(basePath);
+    yield exec.exec('ls', ['-lisah', basePath]);
     if (os === 'darwin') {
         const bin = path.join(basePath, 'condabin');
         core.addPath(bin);

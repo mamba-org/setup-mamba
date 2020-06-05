@@ -11,6 +11,8 @@ async function installMamba(): Promise<void> {
 const addPath = async (os: string): Promise<void> => {
   const basePath = process.env.CONDA as string
   core.addPath(basePath)
+  console.log(basePath)
+  await exec.exec('ls', ['-lisah', basePath])
   if (os === 'darwin') {
     const bin = path.join(basePath, 'condabin')
     core.addPath(bin)
