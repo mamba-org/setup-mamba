@@ -1024,7 +1024,9 @@ function installMamba() {
 function activate(os) {
     return __awaiter(this, void 0, void 0, function* () {
         if (os === 'win32') {
-            yield exec.exec('activate.bat', ['base']);
+            const basePath = process.env.CONDA;
+            const activateFile = path.join(basePath, 'condabin', 'activate.bat');
+            yield exec.exec('conda', ['shell.powershell', activateFile, 'base']);
         }
     });
 }

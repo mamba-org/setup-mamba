@@ -43,7 +43,7 @@ async function activate(os: string): Promise<void> {
   if (os === 'win32') {
     const basePath = process.env.CONDA as string
     const activateFile = path.join(basePath, 'condabin', 'activate.bat')
-    await exec.exec(activateFile, ['base'])
+    await exec.exec('conda', ['shell.powershell', activateFile, 'base'])
   }
 }
 
