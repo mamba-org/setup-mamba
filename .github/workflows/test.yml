@@ -29,7 +29,12 @@ jobs:
     - name: Run conda list
       run: conda list
     - name: Install Python
-      run: mamba install -y -c conda-forge xtensor
+      run: |
+        echo $env:path
+        conda activate base
+        conda info
+        echo $env:path
+        mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
       run: mamba install -y -c notebook ipywidgets
     - name: List the packages
