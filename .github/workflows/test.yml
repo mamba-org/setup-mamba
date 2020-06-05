@@ -29,11 +29,12 @@ jobs:
     - name: Run conda list
       run: conda list
     - name: Install Python
+      shell: cmd
       run: |
-        echo $env:path
-        . activate.bat base
+        echo %PATH%
+        CALL activate.bat
         conda info
-        echo $env:path
+        echo %PATH%
         mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
       run: mamba install -y -c notebook ipywidgets
