@@ -33,7 +33,10 @@ jobs:
       run: conda list
     - name: Install Python
       shell: cmd
-      run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%" && mamba install -y -c conda-forge xtensor
+      run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
+    - name: Install stuff
+      shell: cmd
+      run: mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
       run: mamba install -y -c conda-forge notebook ipywidgets
     - name: List the packages
