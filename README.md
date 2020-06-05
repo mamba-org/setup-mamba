@@ -6,11 +6,4 @@ A GitHub Action to setup [mamba](https://github.com/QuantStack/mamba).
 
 ## Usage
 
-```yaml
-steps:
-  - uses: actions/checkout@v2
-  - uses: TheSnakePit/setup-mamba@v1
-  - run: mamba info
-  - run: mamba install -c conda-forge python
-  - run: mamba list
-```
+**This action is still under development and has not yet been published**.
