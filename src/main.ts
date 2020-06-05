@@ -18,10 +18,11 @@ async function fixPermissions(os: string): Promise<void> {
 
 async function addPath(os: string): Promise<void> {
   const basePath = process.env.CONDA as string
-  core.info(basePath)
-  console.log(basePath)
   if (os === 'darwin') {
     const bin = path.join(basePath, 'condabin')
+    core.addPath(bin)
+  } else if (os === 'win32') {
+    const bin = path.join(basePath, 'Scripts')
     core.addPath(bin)
   } else {
     const bin = path.join(basePath, 'bin')

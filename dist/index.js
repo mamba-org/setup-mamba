@@ -1002,10 +1002,12 @@ function fixPermissions(os) {
 function addPath(os) {
     return __awaiter(this, void 0, void 0, function* () {
         const basePath = process.env.CONDA;
-        core.info(basePath);
-        console.log(basePath);
         if (os === 'darwin') {
             const bin = path.join(basePath, 'condabin');
+            core.addPath(bin);
+        }
+        else if (os === 'win32') {
+            const bin = path.join(basePath, 'Scripts');
             core.addPath(bin);
         }
         else {
