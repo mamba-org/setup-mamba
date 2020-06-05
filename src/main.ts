@@ -22,8 +22,13 @@ async function addPath(os: string): Promise<void> {
     const bin = path.join(basePath, 'condabin')
     core.addPath(bin)
   } else if (os === 'win32') {
-    const bin = path.join(basePath, 'Scripts')
-    core.addPath(bin)
+    core.addPath(path.join(basePath, 'Library', 'bin'))
+    core.addPath(path.join(basePath, 'condabin'))
+    core.addPath(path.join(basePath, 'bin'))
+    core.addPath(path.join(basePath, 'Scripts'))
+    core.addPath(path.join(basePath, 'Library', 'usr', 'bin'))
+    core.addPath(path.join(basePath, 'Library', 'mingw-w64', 'bin'))
+    core.addPath(path.join(basePath))
   } else {
     const bin = path.join(basePath, 'bin')
     core.addPath(bin)
