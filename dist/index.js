@@ -1021,6 +1021,13 @@ function installMamba() {
         yield exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba']);
     });
 }
+function activate(os) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (os === 'win32') {
+            yield exec.exec('activate.bat', ['base']);
+        }
+    });
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -1029,6 +1036,8 @@ function run() {
             fixPermissions(os);
             core.debug('Add conda to the path');
             yield addPath(os);
+            core.debug('Activate the environment');
+            activate(os);
             core.debug('Installing mamba');
             yield installMamba();
         }

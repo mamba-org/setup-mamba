@@ -34,6 +34,12 @@ async function installMamba(): Promise<void> {
   await exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba'])
 }
 
+async function activate(os: string): Promise<void> {
+  if (os === 'win32') {
+    await exec.exec('activate.bat', ['base'])
+  }
+}
+
 async function run(): Promise<void> {
   try {
     const os = process.platform
@@ -43,6 +49,9 @@ async function run(): Promise<void> {
 
     core.debug('Add conda to the path')
     await addPath(os)
+
+    core.debug('Activate the environment')
+    activate(os)
 
     core.debug('Installing mamba')
     await installMamba()
