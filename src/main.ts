@@ -36,7 +36,9 @@ async function installMamba(): Promise<void> {
 
 async function activate(os: string): Promise<void> {
   if (os === 'win32') {
-    await exec.exec('activate.bat', ['base'])
+    const basePath = process.env.CONDA as string
+    const activateFile = path.join(basePath, 'condabin', 'activate.bat')
+    await exec.exec(activateFile, ['base'])
   }
 }
 
