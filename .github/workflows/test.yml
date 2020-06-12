@@ -40,14 +40,19 @@ jobs:
       run: conda list
     - name: Install stuff
       run: |
-        $ErrorActionPreference = 'Stop';
+        $ErrorActionPreference = 'stop';
         conda env list
         get-command mamba
         mamba --version
         write-host 'AAAAA'
-        mamba install -y -c conda-forge xtensor
+        $proc = Start-Process mamba -ArgumentList 'install','-y','-c conda-forge','xtensor' -NoNewWindow -Wait -PassThru;
+        write-host "EXITCODE: ${proc.ExitCode}"
+        write-host $proc.StandardOutput
+        write-host $proc.StandardError
         write-host 'BBBBB'
     - name: Install Notebook and widgets
-      run: mamba install -y -c conda-forge notebook ipywidgets
+      run: |
+        mamba install -y -c conda-forge xtensor
+        mamba install -y -c conda-forge notebook ipywidgets
     - name: List the packages
       run: mamba list
