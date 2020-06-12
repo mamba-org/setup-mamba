@@ -6,6 +6,10 @@ on:
       - master
       - 'releases/*'
 
+defaults:
+  run:
+    shell: powershell
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,20 +33,13 @@ jobs:
         npm install
         npm run all
     - uses: ./
+    - name: init powershell
+      run: conda init --system powershell
     - name: Run conda list
       run: conda list
-    - name: init pwsh
-      run: conda init --system powershell
-    - name: Install Python
-      shell: powershell
-      # run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
-      run: |
-        conda activate base
-        conda env list
-        echo "$env:path"
     - name: Install stuff
-      run: conda activate base && mamba.bat install -y -c conda-forge xtensor
+      run: mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
-      run: mamba.bat install -y -c conda-forge notebook ipywidgets
+      run: mamba install -y -c conda-forge notebook ipywidgets
     - name: List the packages
-      run: mamba.bat list
+      run: mamba list
