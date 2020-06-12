@@ -40,6 +40,7 @@ jobs:
       run: conda list
     - name: Install stuff
       run: |
+        $ErrorActionPreference = 'Stop';
         conda env list
         get-command mamba
         mamba --version
