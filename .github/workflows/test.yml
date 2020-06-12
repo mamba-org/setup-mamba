@@ -52,6 +52,8 @@ jobs:
         write-host 'BBBBB'
         conda list
         write-host 'CCCCC'
+        mamba install --yes conda=4.8.2
+        write-host 'DDDDD'
     - name: Install Notebook and widgets
       run: |
         mamba install -y -c conda-forge xtensor
