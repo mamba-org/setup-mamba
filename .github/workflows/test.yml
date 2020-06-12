@@ -43,7 +43,9 @@ jobs:
         conda env list
         get-command mamba
         mamba --version
+        write-host 'AAAAA'
         mamba install -y -c conda-forge xtensor
+        write-host 'BBBBB'
     - name: Install Notebook and widgets
       run: mamba install -y -c conda-forge notebook ipywidgets
     - name: List the packages
