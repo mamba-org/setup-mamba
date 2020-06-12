@@ -6,17 +6,12 @@ on:
       - master
       - 'releases/*'
 
-defaults:
-  run:
-    shell: powershell
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - shell: bash
-      run: |
+    - run: |
         npm install
         npm run all
 
@@ -27,6 +22,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
+
+    defaults:
+      run:
+        shell: powershell
 
     steps:
     - uses: actions/checkout@v2
