@@ -34,7 +34,7 @@ jobs:
     - name: init pwsh
       run: conda init --system powershell
     - name: Install Python
-      # shell: cmd
+      shell: powershell
       # run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
       run: conda activate base && echo "$env:path"
     - name: Install stuff
