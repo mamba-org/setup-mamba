@@ -36,7 +36,10 @@ jobs:
     - name: Install Python
       shell: powershell
       # run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
-      run: conda activate base && echo "$env:path"
+      run: |
+        conda activate base
+        conda env list
+        echo "$env:path"
     - name: Install stuff
       run: conda activate base && mamba install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
