@@ -50,6 +50,8 @@ jobs:
         write-host $proc.StandardOutput
         write-host $proc.StandardError
         write-host 'BBBBB'
+        conda list
+        write-host 'CCCCC'
     - name: Install Notebook and widgets
       run: |
         mamba install -y -c conda-forge xtensor
