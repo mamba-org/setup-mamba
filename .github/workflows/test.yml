@@ -41,8 +41,8 @@ jobs:
         conda env list
         echo "$env:path"
     - name: Install stuff
-      run: conda activate base && mamba install -y -c conda-forge xtensor
+      run: conda activate base && mamba.bat install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
-      run: mamba install -y -c conda-forge notebook ipywidgets
+      run: mamba.bat install -y -c conda-forge notebook ipywidgets
     - name: List the packages
-      run: mamba list
+      run: mamba.bat list
