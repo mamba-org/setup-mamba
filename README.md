@@ -1,9 +1,4 @@
 # setup-mamba
 
-![build-test](https://github.com/TheSnakePit/setup-mamba/workflows/build-test/badge.svg)
+This project is archived. The GitHub Action setup-mamba is deprecated, please use [setup-micromamba](https://github.com/mamba-org/setup-micromamba) instead.
 
-A GitHub Action to setup [mamba](https://github.com/QuantStack/mamba).
-
-## Usage
-
-**This action is still under development and has not yet been published**.
