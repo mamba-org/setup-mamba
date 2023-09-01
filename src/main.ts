@@ -22,8 +22,13 @@ async function addPath(os: string): Promise<void> {
     const bin = path.join(basePath, 'condabin')
     core.addPath(bin)
   } else if (os === 'win32') {
-    const bin = path.join(basePath, 'Scripts')
-    core.addPath(bin)
+    core.addPath(path.join(basePath, 'Library', 'bin'))
+    core.addPath(path.join(basePath, 'condabin'))
+    core.addPath(path.join(basePath, 'bin'))
+    core.addPath(path.join(basePath, 'Scripts'))
+    core.addPath(path.join(basePath, 'Library', 'usr', 'bin'))
+    core.addPath(path.join(basePath, 'Library', 'mingw-w64', 'bin'))
+    core.addPath(path.join(basePath))
   } else {
     const bin = path.join(basePath, 'bin')
     core.addPath(bin)
@@ -32,6 +37,14 @@ async function addPath(os: string): Promise<void> {
 
 async function installMamba(): Promise<void> {
   await exec.exec('conda', ['install', '-y', '-c', 'conda-forge', 'mamba'])
+}
+
+async function activate(os: string): Promise<void> {
+  if (os === 'win32') {
+    const basePath = process.env.CONDA as string
+    const activateFile = path.join(basePath, 'condabin', 'activate.bat')
+    await exec.exec('conda', ['shell.powershell', activateFile, 'base'])
+  }
 }
 
 async function run(): Promise<void> {
@@ -43,6 +56,9 @@ async function run(): Promise<void> {
 
     core.debug('Add conda to the path')
     await addPath(os)
+
+    core.debug('Activate the environment')
+    activate(os)
 
     core.debug('Installing mamba')
     await installMamba()

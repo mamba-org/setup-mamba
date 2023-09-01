@@ -21,14 +21,28 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-latest]
 
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        npm install
+        npm run all
     - uses: ./
+    - name: Run conda list
+      run: conda list
+    - name: init pwsh
+      run: conda init --system powershell
     - name: Install Python
-      run: mamba install -y -c conda-forge python
+      shell: powershell
+      # run: echo "%PATH%" && CALL activate.bat base && conda info && echo "%PATH%"
+      run: |
+        conda activate base
+        conda env list
+        echo "$env:path"
+    - name: Install stuff
+      run: conda activate base && mamba.bat install -y -c conda-forge xtensor
     - name: Install Notebook and widgets
-      run: mamba install -y -c notebook ipywidgets
+      run: mamba.bat install -y -c conda-forge notebook ipywidgets
     - name: List the packages
-      run: mamba list
+      run: mamba.bat list
